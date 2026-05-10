@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Finance Blog — Saketh S Daroji</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero { padding: 5rem 3rem 3rem; max-width: 1200px; margin: 0 auto; }
+.page-hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--cyan); letter-spacing: 0.2em; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+.page-hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--cyan); }
+.page-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1rem; }
+.page-title em { font-style: italic; color: var(--cyan); }
+.page-sub { font-size: 15px; color: var(--silver); margin-bottom: 0; max-width: 600px; }
+
+/* BLOG FILTER */
+.blog-filter {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  cursor: none;
+  transition: all 0.2s;
+}
+.filter-btn.active, .filter-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(56,189,248,0.06); }
+
+/* FEATURED POST */
+.blog-featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--navy2);
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+}
+.blog-featured:hover { border-color: rgba(56,189,248,0.4); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.blog-featured-img {
+  min-height: 280px;
+  background: linear-gradient(135deg, var(--navy3), var(--steel));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 72px;
+  position: relative;
+  overflow: hidden;
+}
+.blog-featured-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(30,106,191,0.3), transparent); }
+.blog-featured-body { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+.blog-featured-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--cyan);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.blog-featured-label span {
+  background: rgba(56,189,248,0.1);
+  border: 1px solid rgba(56,189,248,0.2);
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+.blog-featured-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin-bottom: 1rem; line-height: 1.25; }
+.blog-featured-excerpt { font-size: 14px; color: var(--silver); line-height: 1.75; margin-bottom: 1.5rem; }
+.blog-featured-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+
+/* BLOG GRID */
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.blog-card {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: none;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.blog-card:hover { border-color: rgba(56,189,248,0.3); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+.blog-card-img {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  background: linear-gradient(135deg, var(--navy3), var(--steel));
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.blog-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(30,106,191,0.2), transparent); }
+.blog-card-body { padding: 1.5rem; }
+.blog-card-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.blog-card-title { font-size: 15px; font-weight: 600; margin-bottom: 0.75rem; line-height: 1.4; }
+.blog-card-excerpt { font-size: 13px; color: var(--silver); line-height: 1.6; margin-bottom: 1rem; }
+.blog-card-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); display: flex; gap: 1rem; }
+
+/* NEWSLETTER BLOCK */
+.newsletter-block {
+  background: linear-gradient(135deg, var(--navy3), var(--steel));
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 6px;
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+.newsletter-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan), transparent);
+}
+.newsletter-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; margin-bottom: 0.75rem; }
+.newsletter-sub { font-size: 14px; color: var(--silver); margin-bottom: 1.5rem; }
+.newsletter-form { display: flex; gap: 0.75rem; max-width: 440px; margin: 0 auto; }
+.newsletter-input {
+  flex: 1;
+  background: rgba(10,22,40,0.8);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.newsletter-input:focus { border-color: var(--cyan); }
+.newsletter-input::placeholder { color: var(--muted); }
+
+@media(max-width: 900px) {
+  .blog-featured { grid-template-columns: 1fr; }
+  .blog-featured-img { min-height: 160px; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+<div class="grid-bg"></div>
+<div class="noise"></div>
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
+
+<div class="ticker-bar">
+  <span class="ticker-label">MARKET DATA</span>
+  <div class="ticker-track"></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">S<span>.</span>Daroji</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page content">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Finance Insights</div>
+    <h1 class="page-title">Thinking Out<br><em>Loud on Finance</em></h1>
+    <p class="page-sub">Perspectives on financial strategy, D2C brand economics, predictive modeling, and the intersection of data and business decisions.</p>
+  </div>
+
+  <section class="section" style="padding-top:2rem">
+
+    <!-- FILTERS -->
+    <div class="blog-filter fade-up">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Strategy</button>
+      <button class="filter-btn">D2C Finance</button>
+      <button class="filter-btn">Analytics</button>
+      <button class="filter-btn">Valuation</button>
+      <button class="filter-btn">Career</button>
+    </div>
+
+    <!-- FEATURED -->
+    <a href="#" class="blog-featured fade-up">
+      <div class="blog-featured-img">💸</div>
+      <div class="blog-featured-body">
+        <div class="blog-featured-label"><span>FEATURED</span> D2C Finance · May 2025</div>
+        <div class="blog-featured-title">The Hidden Cost of Poor Financial Forecasting in D2C Brands</div>
+        <div class="blog-featured-excerpt">Most D2C brands focus obsessively on CAC and LTV but completely underestimate how poor forecasting destroys margins. Here's what I've learned managing a ₹250Cr portfolio across 7 brands.</div>
+        <div class="blog-featured-meta">Saketh S Daroji · 5 min read</div>
+      </div>
+    </a>
+
+    <!-- BLOG GRID -->
+    <div class="blog-grid">
+      <a href="#" class="blog-card fade-up">
+        <div class="blog-card-img">📊</div>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Analytics</div>
+          <div class="blog-card-title">Why Every Finance Team Needs a Power BI Dashboard (And How to Build One)</div>
+          <div class="blog-card-excerpt">MIS reporting shouldn't be manual. Here's my template for building real-time finance dashboards.</div>
+          <div class="blog-card-meta"><span>Apr 2025</span><span>4 min read</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card fade-up">
+        <div class="blog-card-img">🧮</div>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Valuation</div>
+          <div class="blog-card-title">DuPont Analysis Explained: Breaking Down ROE the Right Way</div>
+          <div class="blog-card-excerpt">ROE alone tells you nothing. DuPont breaks it into profitability, efficiency, and leverage — and that's where the story is.</div>
+          <div class="blog-card-meta"><span>Mar 2025</span><span>6 min read</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card fade-up">
+        <div class="blog-card-img">📦</div>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">D2C Finance</div>
+          <div class="blog-card-title">DOH: The Inventory Metric That Can Make or Break Your Brand's Cash Flow</div>
+          <div class="blog-card-excerpt">Days on Hand is more than a supply chain metric — it's a window into your working capital health.</div>
+          <div class="blog-card-meta"><span>Feb 2025</span><span>5 min read</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card fade-up">
+        <div class="blog-card-img">🔮</div>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Strategy</div>
+          <div class="blog-card-title">From Reactive to Predictive: How Finance Teams Can Get Ahead of the Business</div>
+          <div class="blog-card-excerpt">The shift from month-end reporting to forward-looking finance is the biggest career unlock I've experienced.</div>
+          <div class="blog-card-meta"><span>Jan 2025</span><span>7 min read</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card fade-up">
+        <div class="blog-card-img">🎓</div>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Career</div>
+          <div class="blog-card-title">Breaking into Business Finance: What Nobody Tells You in College</div>
+          <div class="blog-card-excerpt">The gap between B.Com theory and what actual business finance looks like — and how to bridge it fast.</div>
+          <div class="blog-card-meta"><span>Dec 2024</span><span>5 min read</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card fade-up">
+        <div class="blog-card-img">📈</div>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Analytics</div>
+          <div class="blog-card-title">SQL for Finance Professionals: The 10 Queries I Use Every Week</div>
+          <div class="blog-card-excerpt">You don't need to be a data engineer. These 10 SQL queries will make you the most data-literate person in your finance team.</div>
+          <div class="blog-card-meta"><span>Nov 2024</span><span>8 min read</span></div>
+        </div>
+      </a>
+    </div>
+
+    <!-- NEWSLETTER -->
+    <div class="newsletter-block fade-up">
+      <div class="newsletter-title">Finance Insights, Monthly</div>
+      <div class="newsletter-sub">No fluff. Just sharp takes on business finance, D2C economics, and data-driven strategy — straight to your inbox.</div>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="your@email.com"/>
+        <button class="btn btn-primary" style="white-space:nowrap">Subscribe →</button>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<footer>
+  <span class="footer-text">© 2025 Saketh S Daroji · Business Finance Partner</span>
+  <div class="footer-links">
+    <a href="mailto:darojisaketh@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank">LinkedIn</a>
+    <a href="tel:+917349656335">+91-7349656335</a>
+  </div>
+  <span class="footer-text">Bengaluru, India</span>
+</footer>
+
+<script src="main.js"></script>
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

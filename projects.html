@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Projects — Saketh S Daroji</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero { padding: 5rem 3rem 3rem; max-width: 1200px; margin: 0 auto; }
+.page-hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--cyan); letter-spacing: 0.2em; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+.page-hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--cyan); }
+.page-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
+.page-title em { font-style: italic; color: var(--cyan); }
+
+.proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.proj-card {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.proj-card:hover { border-color: rgba(56,189,248,0.3); transform: translateY(-6px); box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 40px rgba(30,106,191,0.1); }
+.proj-card-banner {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.proj-card-banner .banner-icon { font-size: 56px; position: relative; z-index: 1; }
+.proj-card-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--navy3), var(--steel));
+}
+.proj-card-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(30,106,191,0.3), rgba(56,189,248,0.05));
+}
+.proj-card-body { padding: 2rem; flex: 1; }
+.proj-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 1rem;
+}
+.proj-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
+.proj-desc { font-size: 14px; color: var(--silver); line-height: 1.7; margin-bottom: 1.5rem; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.proj-card-footer {
+  padding: 1.25rem 2rem;
+  border-top: 1px solid var(--border);
+  background: var(--navy3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.proj-card-footer-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+
+/* FEATURED PROJECT */
+.proj-featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--navy2);
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s;
+  position: relative;
+}
+.proj-featured::before {
+  content: 'FEATURED';
+  position: absolute;
+  top: 16px; right: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  background: rgba(56,189,248,0.1);
+  border: 1px solid rgba(56,189,248,0.3);
+  padding: 4px 10px;
+  border-radius: 2px;
+  z-index: 2;
+}
+.proj-featured:hover { border-color: rgba(56,189,248,0.4); transform: translateY(-4px); }
+.proj-featured-visual {
+  background: linear-gradient(135deg, var(--navy3), var(--steel));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+.proj-featured-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(30,106,191,0.3), transparent);
+}
+.proj-featured-body { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+.proj-featured-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--cyan); letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+.proj-featured-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin-bottom: 1rem; line-height: 1.25; }
+.proj-featured-desc { font-size: 15px; color: var(--silver); line-height: 1.75; margin-bottom: 1.5rem; }
+
+@media(max-width: 768px) {
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-featured { grid-template-columns: 1fr; }
+  .proj-featured-visual { min-height: 160px; }
+}
+</style>
+</head>
+<body>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+<div class="grid-bg"></div>
+<div class="noise"></div>
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
+
+<div class="ticker-bar">
+  <span class="ticker-label">MARKET DATA</span>
+  <div class="ticker-track"></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">S<span>.</span>Daroji</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page content">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Research & Analysis</div>
+    <h1 class="page-title">Projects That<br><em>Moved Numbers</em></h1>
+  </div>
+
+  <section class="section" style="padding-top:0">
+    <div class="proj-grid">
+
+      <!-- FEATURED -->
+      <div class="proj-featured fade-up">
+        <div class="proj-featured-visual">🎵</div>
+        <div class="proj-featured-body">
+          <div class="proj-featured-eyebrow">// MAY 2024 · PREDICTIVE FINANCE</div>
+          <div class="proj-featured-title">Harmonizing the Symphony of Predictive Finance</div>
+          <div class="proj-featured-desc">Led a comprehensive project integrating predictive analytics into financial forecasting processes. Built forward-looking models that bridged data science with financial strategy — transforming historical patterns into actionable revenue projections.</div>
+          <div class="proj-tags" style="margin-bottom:1.5rem">
+            <span class="tag tag-blue">Predictive Analytics</span>
+            <span class="tag tag-blue">Forecasting</span>
+            <span class="tag tag-blue">Financial Modeling</span>
+            <span class="tag">Data Science</span>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">PES University · Final Year Project</div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="proj-card fade-up">
+        <div class="proj-card-banner">
+          <span class="banner-icon">👟</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-meta"><span>SEP 2023</span><span>DUPONT ANALYSIS</span></div>
+          <div class="proj-title">Triple Leverage Analysis — DuPont's Stance</div>
+          <div class="proj-desc">Conducted an in-depth analysis of a Shoe Venture's ROE using DuPont Analysis, decomposing profitability, asset efficiency, and financial leverage components to identify strategies for optimized financial performance.</div>
+          <div class="proj-tags">
+            <span class="tag tag-blue">DuPont Analysis</span>
+            <span class="tag tag-blue">ROE</span>
+            <span class="tag">Leverage</span>
+            <span class="tag">Profitability</span>
+          </div>
+        </div>
+        <div class="proj-card-footer">
+          <span class="proj-card-footer-label">PES University · Academic Research</span>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 (placeholder for growth) -->
+      <div class="proj-card fade-up" style="border-style:dashed;opacity:0.6">
+        <div class="proj-card-banner">
+          <span class="banner-icon">➕</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-meta"><span>UPCOMING</span></div>
+          <div class="proj-title">More Projects Coming Soon</div>
+          <div class="proj-desc">Currently working on new research in multi-brand financial strategy and inventory optimization models. Check back soon or reach out to collaborate.</div>
+          <div class="proj-tags">
+            <span class="tag">In Progress</span>
+          </div>
+        </div>
+        <div class="proj-card-footer">
+          <span class="proj-card-footer-label">Reach out to collaborate →</span>
+          <a href="contact.html" class="btn btn-outline" style="font-size:11px;padding:6px 14px">Contact</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<footer>
+  <span class="footer-text">© 2025 Saketh S Daroji · Business Finance Partner</span>
+  <div class="footer-links">
+    <a href="mailto:darojisaketh@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank">LinkedIn</a>
+    <a href="tel:+917349656335">+91-7349656335</a>
+  </div>
+  <span class="footer-text">Bengaluru, India</span>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

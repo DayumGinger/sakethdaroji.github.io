@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — Saketh S Daroji</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero { padding: 5rem 3rem 3rem; max-width: 1200px; margin: 0 auto; }
+.page-hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--cyan); letter-spacing: 0.2em; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+.page-hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--cyan); }
+.page-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
+.page-title em { font-style: italic; color: var(--cyan); }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+
+/* LEFT */
+.contact-channels { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+.contact-channel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+}
+.contact-channel:hover { border-color: rgba(56,189,248,0.3); transform: translateX(4px); }
+.contact-channel-icon {
+  width: 40px; height: 40px;
+  background: rgba(30,106,191,0.15);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.contact-channel-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 2px; }
+.contact-channel-value { font-size: 14px; font-weight: 500; color: var(--text); }
+.contact-channel-arrow { margin-left: auto; color: var(--muted); font-size: 18px; transition: transform 0.2s; }
+.contact-channel:hover .contact-channel-arrow { transform: translateX(4px); color: var(--cyan); }
+
+.status-card {
+  background: var(--navy2);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+.status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.status-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; }
+.status-badge { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--green); }
+.status-badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+.status-text { font-size: 13px; color: var(--silver); line-height: 1.6; }
+
+.response-note { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+/* RIGHT - FORM */
+.contact-form-card {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  position: sticky;
+  top: 110px;
+}
+.contact-form-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(30,106,191,0.08), transparent);
+}
+.contact-form-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.contact-form-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
+.contact-form-body { padding: 2rem; }
+.form-group { margin-bottom: 1.25rem; }
+.form-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--cyan); letter-spacing: 0.12em; display: block; margin-bottom: 0.5rem; }
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  background: var(--navy3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 12px 16px;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--cyan); background: rgba(15,32,64,0.8); }
+.form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+.form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+.form-select option { background: var(--navy2); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.contact-form-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border);
+  background: var(--navy3);
+}
+.form-submit { width: 100%; justify-content: center; font-size: 13px; padding: 14px; }
+.form-note { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); text-align: center; margin-top: 0.75rem; }
+
+/* SUCCESS STATE */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+.form-success-icon { font-size: 48px; margin-bottom: 1rem; }
+.form-success-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 0.5rem; }
+.form-success-sub { font-size: 14px; color: var(--silver); }
+
+@media(max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-form-card { position: static; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+<div class="grid-bg"></div>
+<div class="noise"></div>
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
+
+<div class="ticker-bar">
+  <span class="ticker-label">MARKET DATA</span>
+  <div class="ticker-track"></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">S<span>.</span>Daroji</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page content">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Get In Touch</div>
+    <h1 class="page-title">Let's Build<br><em>Something Together</em></h1>
+  </div>
+
+  <section class="section" style="padding-top:0">
+    <div class="contact-grid">
+
+      <!-- LEFT -->
+      <div>
+        <div class="status-card fade-up">
+          <div class="status-header">
+            <span class="status-title">CURRENT STATUS</span>
+            <span class="status-badge">AVAILABLE</span>
+          </div>
+          <div class="status-text">Currently working as Business Finance Partner at BRND.ME. Open to senior finance, FP&A, business partnering, and strategic analyst roles — preferably in high-growth D2C, consumer, or tech companies.</div>
+        </div>
+
+        <div class="contact-channels fade-up">
+          <a href="mailto:darojisaketh@gmail.com" class="contact-channel">
+            <div class="contact-channel-icon">✉️</div>
+            <div>
+              <div class="contact-channel-label">EMAIL</div>
+              <div class="contact-channel-value">darojisaketh@gmail.com</div>
+            </div>
+            <div class="contact-channel-arrow">→</div>
+          </a>
+          <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank" class="contact-channel">
+            <div class="contact-channel-icon">💼</div>
+            <div>
+              <div class="contact-channel-label">LINKEDIN</div>
+              <div class="contact-channel-value">linkedin.com/in/saketh-s-daroji</div>
+            </div>
+            <div class="contact-channel-arrow">→</div>
+          </a>
+          <a href="tel:+917349656335" class="contact-channel">
+            <div class="contact-channel-icon">📞</div>
+            <div>
+              <div class="contact-channel-label">PHONE</div>
+              <div class="contact-channel-value">+91-7349656335</div>
+            </div>
+            <div class="contact-channel-arrow">→</div>
+          </a>
+          <div class="contact-channel" style="cursor:default">
+            <div class="contact-channel-icon">📍</div>
+            <div>
+              <div class="contact-channel-label">LOCATION</div>
+              <div class="contact-channel-value">Bengaluru, Karnataka, India</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="response-note fade-up">
+          // Typically responds within 24 hours.<br>
+          // Best reached via email or LinkedIn.<br>
+          // Open to calls after initial email.
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="contact-form-card fade-up">
+        <div class="contact-form-header">
+          <div class="contact-form-title">Send a Message</div>
+          <div class="contact-form-sub">// Fill out the form and I'll get back to you</div>
+        </div>
+        <div id="formBody" class="contact-form-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">// YOUR NAME</label>
+              <input type="text" class="form-input" placeholder="Full name"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">// EMAIL</label>
+              <input type="email" class="form-input" placeholder="your@email.com"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">// SUBJECT</label>
+            <select class="form-select">
+              <option value="" disabled selected>Select a topic</option>
+              <option>Job Opportunity</option>
+              <option>Collaboration / Freelance</option>
+              <option>Blog / Speaking</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">// MESSAGE</label>
+            <textarea class="form-textarea" placeholder="Tell me about the opportunity or what you'd like to discuss..."></textarea>
+          </div>
+        </div>
+        <div id="formSuccess" class="form-success">
+          <div class="form-success-icon">✅</div>
+          <div class="form-success-title">Message Sent!</div>
+          <div class="form-success-sub">Thanks for reaching out. I'll get back to you within 24 hours.</div>
+        </div>
+        <div class="contact-form-footer">
+          <button class="btn btn-primary form-submit" id="submitBtn" onclick="handleSubmit()">Send Message →</button>
+          <div class="form-note">// Your details are safe and never shared.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<footer>
+  <span class="footer-text">© 2025 Saketh S Daroji · Business Finance Partner</span>
+  <div class="footer-links">
+    <a href="mailto:darojisaketh@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank">LinkedIn</a>
+    <a href="tel:+917349656335">+91-7349656335</a>
+  </div>
+  <span class="footer-text">Bengaluru, India</span>
+</footer>
+
+<script src="main.js"></script>
+<script>
+function handleSubmit() {
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+  document.getElementById('submitBtn').style.display = 'none';
+}
+</script>
+</body>
+</html>
