@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harmonizing the Symphony of Predictive Finance — Saketh S Daroji</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* CASE STUDY HEADER */
+.cs-header { padding: 5rem 0 3.5rem; border-bottom: 1px solid var(--rule); }
+.cs-back { font-size: 11px; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 2rem; transition: color 0.2s; }
+.cs-back:hover { color: var(--blue); }
+.cs-meta-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.cs-meta-item { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+.cs-meta-item strong { color: var(--blue); font-weight: 500; }
+.cs-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; max-width: 760px; }
+.cs-title em { font-style: italic; color: var(--blue); }
+.cs-summary { font-size: 15px; color: var(--muted); max-width: 600px; line-height: 1.85; }
+
+/* KEY RESULT STRIP */
+.result-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--rule); }
+.result-cell { padding: 2.2rem 2rem; border-right: 1px solid var(--rule); }
+.result-cell:last-child { border-right: none; }
+.result-val { font-family: 'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 300; color: var(--ink); line-height: 1; margin-bottom: 5px; }
+.result-lbl { font-size: 10.5px; color: var(--faint); letter-spacing: 0.04em; }
+
+/* SECTIONS */
+.cs-section { padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+.cs-section:last-of-type { border-bottom: none; }
+.cs-section-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; }
+.cs-section-label::after { content: ''; height: 1px; flex: 1; max-width: 56px; background: var(--rule); }
+.cs-section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 300; margin-bottom: 1.5rem; }
+.cs-section-title em { font-style: italic; color: var(--blue); }
+.cs-text { font-size: 14.5px; color: var(--muted); line-height: 1.85; max-width: 680px; }
+.cs-text + .cs-text { margin-top: 1rem; }
+.cs-text strong { color: var(--ink2); font-weight: 500; }
+
+/* DATA TABLES */
+.data-table-wrap { overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--rule); border-radius: 4px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 520px; }
+.data-table th { background: var(--cream); text-align: right; padding: 10px 16px; font-weight: 500; color: var(--ink2); border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.data-table th:first-child { text-align: left; }
+.data-table td { padding: 9px 16px; text-align: right; border-bottom: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.data-table td:first-child { text-align: left; color: var(--ink2); font-weight: 500; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--cream); }
+.data-table .highlight td { color: var(--ink); font-weight: 500; }
+.table-caption { font-size: 11px; color: var(--faint); margin-top: 0.6rem; letter-spacing: 0.03em; }
+
+/* MINI BAR CHART (CSS-only) */
+.chart-block { margin: 1.5rem 0; padding: 1.75rem; background: var(--cream); border: 1px solid var(--rule); border-radius: 4px; }
+.chart-title { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.25rem; }
+.bar-row { display: grid; grid-template-columns: 70px 1fr 90px; align-items: center; gap: 1rem; margin-bottom: 0.85rem; }
+.bar-label { font-size: 11px; color: var(--muted); }
+.bar-track { height: 8px; background: var(--rule); border-radius: 100px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--blue2)); border-radius: 100px; }
+.bar-val { font-size: 12px; color: var(--ink2); text-align: right; font-weight: 500; }
+
+/* METHODOLOGY STEPS */
+.method-steps { display: flex; flex-direction: column; }
+.method-step { display: grid; grid-template-columns: 50px 1fr; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--rule); }
+.method-step:last-child { border-bottom: none; }
+.method-num { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--sand); font-weight: 300; }
+.method-title { font-size: 14.5px; font-weight: 500; color: var(--ink2); margin-bottom: 0.4rem; }
+.method-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* RECOMMENDATIONS LIST */
+.rec-list { display: flex; flex-direction: column; gap: 1rem; }
+.rec-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1.1rem 1.4rem; background: var(--cream); border: 1px solid var(--rule); border-radius: 4px; }
+.rec-marker { font-size: 13px; color: var(--blue); flex-shrink: 0; margin-top: 1px; }
+.rec-text { font-size: 13px; color: var(--ink2); line-height: 1.65; }
+.rec-text strong { font-weight: 500; }
+
+/* NEXT PROJECT NAV */
+.cs-nav-footer { display: flex; justify-content: space-between; align-items: center; padding: 3rem 0; }
+.cs-nav-link { font-size: 12px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+.cs-nav-link:hover { color: var(--blue); }
+
+@media (max-width: 700px) {
+  .result-strip { grid-template-columns: 1fr 1fr; }
+  .result-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+  .result-cell:nth-child(odd) { border-right: 1px solid var(--rule); }
+  .bar-row { grid-template-columns: 56px 1fr 70px; gap: 0.6rem; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Saketh <i>S.</i> Daroji</a>
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="cs-header">
+    <div class="wrap">
+      <a href="projects.html" class="cs-back">← Back to projects</a>
+      <div class="cs-meta-row">
+        <span class="cs-meta-item">Client: <strong>WaveUltra Pvt Ltd</strong></span>
+        <span class="cs-meta-item">Jan – May 2024</span>
+        <span class="cs-meta-item">Via Girish GR & Associates</span>
+      </div>
+      <h1 class="cs-title">Harmonizing the Symphony of <em>Predictive Finance</em></h1>
+      <p class="cs-summary">A full predictive finance engagement for a real ultrasonic cleaning equipment manufacturer — combining three-statement modelling, forecasting, ratio analysis, and DCF valuation to arrive at an intrinsic equity value for the business.</p>
+    </div>
+  </div>
+
+  <!-- KEY RESULTS -->
+  <div class="result-strip">
+    <div class="result-cell reveal"><div class="result-val">₹2,945.63</div><div class="result-lbl">Equity value per share</div></div>
+    <div class="result-cell reveal reveal-d1"><div class="result-val">20.04%</div><div class="result-lbl">WACC calculated</div></div>
+    <div class="result-cell reveal reveal-d2"><div class="result-val">₹4.18Cr</div><div class="result-lbl">Terminal value</div></div>
+    <div class="result-cell reveal reveal-d3"><div class="result-val">661.7%</div><div class="result-lbl">Peak sales growth (FY22)</div></div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- THE CLIENT -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">The client</div>
+      <h2 class="cs-section-title">A growing manufacturer<br>needing <em>financial clarity</em></h2>
+      <p class="cs-text">WaveUltra Pvt Ltd is an ultrasonic cleaning equipment manufacturer based in Bengaluru, serving clients across automotive, medical, electronics, and aerospace industries. By 2022, the company had scaled rapidly — but rapid growth brought a need for rigorous financial modelling to understand true performance, valuation, and the cost of capital funding that growth.</p>
+      <p class="cs-text">My role, completed during my tenure at Girish GR & Associates, was to build the full financial architecture: historical statement analysis, forward forecasts, and a complete valuation model.</p>
+    </div>
+
+    <!-- THREE STATEMENT MODEL -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Three-statement model</div>
+      <h2 class="cs-section-title">Reading four years of<br><em>historical performance</em></h2>
+      <p class="cs-text">The starting point was a full income statement, balance sheet, and cash flow reconstruction across FY19–FY22. Sales grew from <strong>₹26.4L to ₹1.37Cr</strong>, with explosive growth years in FY20 (+560%) and FY22 (+662%) as the company scaled its manufacturing capacity.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Metric</th><th>Mar-19</th><th>Mar-20</th><th>Mar-21</th><th>Mar-22</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Sales</td><td>₹26.4L</td><td>₹1.74Cr</td><td>₹1.80Cr</td><td>₹13.72Cr</td></tr>
+            <tr><td>Sales Growth</td><td>0.00%</td><td>559.95%</td><td>3.51%</td><td>661.67%</td></tr>
+            <tr><td>Gross Profit</td><td>₹4.51L</td><td>₹11.13L</td><td>₹23.95L</td><td>₹1.01Cr</td></tr>
+            <tr><td>EBITDA</td><td>₹19,469</td><td>₹2.13L</td><td>₹8.76L</td><td>₹51.79L</td></tr>
+            <tr class="highlight"><td>Net Profit</td><td>₹19,469</td><td>₹1.98L</td><td>₹9.08L</td><td>₹30.65L</td></tr>
+            <tr><td>EPS</td><td>₹1.95</td><td>₹19.83</td><td>₹90.77</td><td>₹306.52</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">Source: Income statement reconstruction, Waveultra Pvt Ltd historicals (FY19–FY22)</p>
+
+      <p class="cs-text">Despite the dramatic top-line growth, net margin actually <strong>declined slightly from 0.74% to 2.23%</strong> over the period — a signal of margin pressure even amid scale, which became a key input for the recommendations later in the engagement.</p>
+    </div>
+
+    <!-- RATIO ANALYSIS -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Ratio analysis</div>
+      <h2 class="cs-section-title">Profitability, efficiency<br>and <em>solvency signals</em></h2>
+      <p class="cs-text">Beyond the headline numbers, a full ratio analysis surfaced how efficiently the business was actually running — turning over inventory, collecting receivables, and converting capital into returns.</p>
+
+      <div class="chart-block">
+        <div class="chart-title">Return on Equity (ROE) by year</div>
+        <div class="bar-row"><span class="bar-label">Mar-19</span><div class="bar-track"><div class="bar-fill" style="width:21%"></div></div><span class="bar-val">16.30%</span></div>
+        <div class="bar-row"><span class="bar-label">Mar-20</span><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><span class="bar-val">62.40%</span></div>
+        <div class="bar-row"><span class="bar-label">Mar-21</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">78.04%</span></div>
+        <div class="bar-row"><span class="bar-label">Mar-22</span><div class="bar-track"><div class="bar-fill" style="width:93%"></div></div><span class="bar-val">72.49%</span></div>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Ratio</th><th>Mar-19</th><th>Mar-20</th><th>Mar-21</th><th>Mar-22</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Return on Capital Employed</td><td>1.16%</td><td>2.89%</td><td>2.20%</td><td>8.64%</td></tr>
+            <tr><td>Debtor Turnover</td><td>2.95x</td><td>20.89x</td><td>3.75x</td><td>19.75x</td></tr>
+            <tr><td>Inventory Turnover</td><td>19.33x</td><td>6.82x</td><td>0.86x</td><td>69.06x</td></tr>
+            <tr><td>Fixed Asset Turnover</td><td>0.00x</td><td>169.83x</td><td>238.48x</td><td>31.86x</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">Source: Ratio analysis using three-statement model</p>
+    </div>
+
+    <!-- FORECASTING -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Forecasting model</div>
+      <h2 class="cs-section-title">Projecting growth<br>through <em>FY27</em></h2>
+      <p class="cs-text">Using trend-based forecasting techniques, I projected Sales, EBITDA, and EPS five years forward — modelling a deceleration from the historical hyper-growth phase into a more sustainable, mature growth curve.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Sales (Est.)</th><th>Growth</th><th>EBITDA (Est.)</th><th>EPS (Est.)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FY23E</td><td>₹14.48Cr</td><td>5.60%</td><td>₹56.07L</td><td>₹350.9</td></tr>
+            <tr><td>FY24E</td><td>₹18.52Cr</td><td>27.90%</td><td>₹72.21L</td><td>₹449.4</td></tr>
+            <tr><td>FY25E</td><td>₹22.56Cr</td><td>21.82%</td><td>₹88.35L</td><td>₹547.9</td></tr>
+            <tr><td>FY26E</td><td>₹26.60Cr</td><td>17.91%</td><td>₹1.04Cr</td><td>₹646.3</td></tr>
+            <tr class="highlight"><td>FY27E</td><td>₹30.64Cr</td><td>15.19%</td><td>₹1.21Cr</td><td>₹744.8</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">Source: Sales, EBITDA & EPS forecasting models</p>
+    </div>
+
+    <!-- DCF & WACC -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">DCF valuation</div>
+      <h2 class="cs-section-title">Arriving at an<br><em>intrinsic equity value</em></h2>
+      <p class="cs-text">The core deliverable was a discounted cash flow valuation. This meant calculating Free Cash Flow to Firm (FCFF) across the forecast period, discounting it back using a calculated WACC, and estimating terminal value beyond the explicit forecast window.</p>
+
+      <div class="method-steps">
+        <div class="method-step">
+          <div class="method-num">01</div>
+          <div>
+            <div class="method-title">Calculate WACC using peer comps</div>
+            <div class="method-desc">Built a peer comp set (Hindustan Unilever, Nestlé India, Britannia, Godrej Consumer, Dabur) to derive an unlevered beta, then re-levered it to WaveUltra's capital structure. Cost of equity came out to 20.88%, cost of debt to 6.80%, blending to a <strong>WACC of 20.04%</strong>.</div>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-num">02</div>
+          <div>
+            <div class="method-title">Project FCFF across the forecast window</div>
+            <div class="method-desc">Derived EBIT(1-tax) for each forecast year, then subtracted reinvestment needs (~48–49% of post-tax EBIT) to arrive at Free Cash Flow to Firm, ranging from ₹20.3L to ₹50.7L across FY23–FY27.</div>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-num">03</div>
+          <div>
+            <div class="method-title">Discount and calculate terminal value</div>
+            <div class="method-desc">Applied mid-year discounting conventions to each FCFF figure, then used the perpetuity growth method (terminal growth rate of 5.38%) to calculate a terminal value of <strong>₹4.18Cr</strong>.</div>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-num">04</div>
+          <div>
+            <div class="method-title">Sum to equity value</div>
+            <div class="method-desc">Combined the present value of FCFF (₹1.11Cr) with the present value of terminal value (₹1.84Cr) to get Value of Operating Assets of ₹2.95Cr. Adjusting for cash and debt, then dividing across 10,000 shares, gave an <strong>equity value of ₹2,945.63 per share</strong>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECOMMENDATIONS -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Recommendations</div>
+      <h2 class="cs-section-title">Where the business<br>could <em>create more value</em></h2>
+      <p class="cs-text">Beyond the valuation itself, the engagement surfaced concrete areas where WaveUltra could improve its financial position:</p>
+      <div class="rec-list">
+        <div class="rec-item">
+          <span class="rec-marker">→</span>
+          <div class="rec-text"><strong>Inventory management:</strong> inventory turnover swung wildly (0.86x to 69.06x), suggesting inconsistent stock planning that risked either stockouts or excess holding costs.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-marker">→</span>
+          <div class="rec-text"><strong>Working capital optimisation:</strong> an extremely negative creditor turnover ratio indicated the company was paying suppliers far faster than necessary — an opportunity to renegotiate terms and free up cash.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-marker">→</span>
+          <div class="rec-text"><strong>Debt restructuring:</strong> refinancing existing debt at lower rates or extending maturities would reduce WACC and directly increase the present value of future cash flows.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-marker">→</span>
+          <div class="rec-text"><strong>Debtor consistency:</strong> maintaining a steadier debtor turnover ratio (closer to the 11.83x mean) through firmer credit policies would smooth receivables collection and reduce earnings volatility.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <div class="wrap">
+    <div class="cs-nav-footer">
+      <a href="projects.html" class="cs-nav-link">← All projects</a>
+      <a href="project-dupont-analysis.html" class="cs-nav-link">Next: DuPont Analysis →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-l">© 2025 Saketh S Daroji</span>
+  <div class="footer-links">
+    <a href="mailto:darojisaketh@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank">LinkedIn</a>
+    <a href="tel:+917349656335">+91-7349656335</a>
+  </div>
+  <span class="footer-l">Bengaluru, India</span>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Experience — Saketh S Daroji</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-header { padding: 5rem 0 4rem; border-bottom: 1px solid var(--rule); }
+.page-header-inner { max-width: 920px; margin: 0 auto; padding: 0 3rem; }
+.ph-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.5rem; }
+.ph-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
+.ph-title em { font-style: italic; color: var(--blue); }
+.ph-sub { font-size: 14.5px; color: var(--muted); max-width: 480px; line-height: 1.75; }
+
+.impact-row { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--rule); }
+.impact-cell { padding: 2.5rem 2rem; border-right: 1px solid var(--rule); transition: background 0.2s; }
+.impact-cell:last-child { border-right: none; }
+.impact-cell:hover { background: var(--cream); }
+.impact-val { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--ink); line-height: 1; margin-bottom: 5px; }
+.impact-lbl { font-size: 11px; color: var(--faint); letter-spacing: 0.04em; }
+
+.timeline { display: flex; flex-direction: column; }
+.tl-item { display: grid; grid-template-columns: 180px 1fr; gap: 3.5rem; padding: 3.5rem 0; border-bottom: 1px solid var(--rule); }
+.tl-item:first-child { border-top: 1px solid var(--rule); }
+.tl-left { padding-top: 3px; }
+.tl-date { font-size: 11px; color: var(--faint); letter-spacing: 0.05em; line-height: 1.7; margin-bottom: 8px; min-height: 1.5em; }
+.tl-badge { display: inline-block; font-size: 9px; letter-spacing: 0.1em; color: var(--blue); border: 1px solid rgba(61,90,128,0.25); border-radius: 100px; padding: 3px 10px; }
+.tl-company { font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 5px; min-height: 1em; }
+.tl-role { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; line-height: 1.2; margin-bottom: 1rem; min-height: 1.2em; }
+.tl-desc { font-size: 13.5px; color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; min-height: 2em; }
+.tl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+@media (max-width: 700px) {
+  .impact-row { grid-template-columns: 1fr 1fr; }
+  .impact-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+  .impact-cell:nth-child(odd) { border-right: 1px solid var(--rule); }
+  .tl-item { grid-template-columns: 1fr; gap: 0.75rem; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Saketh <i>S.</i> Daroji</a>
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p class="ph-eyebrow">Career</p>
+      <h1 class="ph-title">Where I've<br>created <em>impact.</em></h1>
+      <p class="ph-sub">From valuation work at a boutique firm to leading finance for a multi-brand portfolio — here's my journey so far.</p>
+    </div>
+  </div>
+
+  <div class="impact-row">
+    <div class="impact-cell reveal"><div class="impact-val skel" data-cms="stat1_val">—</div><div class="impact-lbl">Annual portfolio value</div></div>
+    <div class="impact-cell reveal reveal-d1"><div class="impact-val skel" data-cms="stat2_val">—</div><div class="impact-lbl">Brands managed</div></div>
+    <div class="impact-cell reveal reveal-d2"><div class="impact-val">4</div><div class="impact-lbl">Geographies</div></div>
+    <div class="impact-cell reveal reveal-d3"><div class="impact-val">3</div><div class="impact-lbl">Business models</div></div>
+  </div>
+
+  <div class="wrap">
+    <div class="section">
+      <div class="eyebrow reveal">Work history</div>
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-left">
+            <div class="tl-date skel" data-cms="exp1_dates">Oct 2024 – Present</div>
+            <div class="tl-badge">● Current</div>
+          </div>
+          <div>
+            <div class="tl-company skel" data-cms="exp1_company">BRND.ME</div>
+            <div class="tl-role skel" data-cms="exp1_role">Business Finance Partner</div>
+            <div class="tl-desc skel" data-cms="exp1_desc">Loading description...</div>
+            <div class="tl-tags">
+              <span class="pill">P&L</span><span class="pill">AOP</span><span class="pill">MIS</span><span class="pill">Power BI</span><span class="pill">COGS</span><span class="pill">Inventory DOH</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-left">
+            <div class="tl-date skel" data-cms="exp2_dates">Jan 2024 – Jun 2024</div>
+          </div>
+          <div>
+            <div class="tl-company skel" data-cms="exp2_company">Girish & Associates</div>
+            <div class="tl-role skel" data-cms="exp2_role">Finance Associate</div>
+            <div class="tl-desc skel" data-cms="exp2_desc">Loading description...</div>
+            <div class="tl-tags">
+              <span class="pill">DCF</span><span class="pill">WACC</span><span class="pill">EBITDA</span><span class="pill">Financial Modelling</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-left"><div class="tl-date">Aug 2021 – May 2024</div></div>
+          <div>
+            <div class="tl-company">PES University</div>
+            <div class="tl-role">B.Com in Finance</div>
+            <div class="tl-desc">Graduated with CGPA 8.20 — recognised as a 2× Distinction Awardee. Led Arthasansadha — The Finance Club as Head, organising 1 national, 2 intercollege, and 7 departmental events. Runner-Up at 2090 Hackathon.</div>
+            <div class="tl-tags">
+              <span class="pill">Finance Club Head</span><span class="pill">2× Distinction</span><span class="pill">Hackathon Runner-Up</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-l">© 2025 Saketh S Daroji</span>
+  <div class="footer-links">
+    <a href="mailto:darojisaketh@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank">LinkedIn</a>
+    <a href="tel:+917349656335">+91-7349656335</a>
+  </div>
+  <span class="footer-l">Bengaluru, India</span>
+</footer>
+<script src="cms.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

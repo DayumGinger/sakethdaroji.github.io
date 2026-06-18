@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Projects — Saketh S Daroji</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-header { padding: 5rem 0 4rem; border-bottom: 1px solid var(--rule); }
+.page-header-inner { max-width: 920px; margin: 0 auto; padding: 0 3rem; }
+.ph-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.5rem; }
+.ph-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
+.ph-title em { font-style: italic; color: var(--blue); }
+.ph-sub { font-size: 14.5px; color: var(--muted); max-width: 480px; line-height: 1.75; }
+
+.proj-list { display: flex; flex-direction: column; gap: 1.25rem; }
+.proj-card-link {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 1.75rem;
+  align-items: center;
+  padding: 2rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s var(--ease);
+}
+.proj-card-link:hover { border-color: var(--blue2); background: var(--cream); transform: translateY(-2px); }
+.proj-card-icon {
+  width: 64px; height: 64px;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.proj-card-meta { font-size: 10.5px; color: var(--faint); letter-spacing: 0.06em; margin-bottom: 0.5rem; display: flex; gap: 0.5rem; }
+.proj-card-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; margin-bottom: 0.5rem; line-height: 1.25; }
+.proj-card-teaser { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 0.9rem; max-width: 480px; }
+.proj-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.proj-card-cta {
+  font-size: 12px;
+  color: var(--blue);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.proj-card-cta .arrow { transition: transform 0.2s; }
+.proj-card-link:hover .proj-card-cta .arrow { transform: translateX(4px); }
+
+.proj-placeholder { padding: 3.5rem; border: 1px dashed var(--rule); border-radius: 3px; text-align: center; margin-top: 2rem; transition: background 0.2s; }
+.proj-placeholder:hover { background: var(--cream); }
+.proj-placeholder-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--faint); margin-bottom: 0.5rem; }
+.proj-placeholder-sub { font-size: 13px; color: var(--faint); margin-bottom: 1.5rem; }
+
+@media (max-width: 700px) {
+  .proj-card-link { grid-template-columns: 1fr; text-align: left; }
+  .proj-card-icon { margin-bottom: 0.5rem; }
+  .proj-card-cta { margin-top: 0.5rem; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Saketh <i>S.</i> Daroji</a>
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p class="ph-eyebrow">Research & Analysis</p>
+      <h1 class="ph-title">Projects that<br>moved <em>numbers.</em></h1>
+      <p class="ph-sub">Academic and professional research work at the intersection of financial analysis and strategic insight.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="section">
+      <div class="eyebrow reveal">All projects</div>
+      <div class="proj-list">
+
+        <a href="project-predictive-finance.html" class="proj-card-link reveal">
+          <div class="proj-card-icon">🎵</div>
+          <div class="proj-card-body">
+            <div class="proj-card-meta"><span>Jan – May 2024</span><span>·</span><span>WaveUltra Pvt Ltd</span></div>
+            <div class="proj-card-title">Harmonizing the Symphony of Predictive Finance</div>
+            <div class="proj-card-teaser">Three-statement modelling, forecasting, and a full DCF valuation for a real manufacturing client — landing on an equity value of ₹2,945.63 per share.</div>
+            <div class="proj-card-tags">
+              <span class="pill">DCF Valuation</span><span class="pill">WACC</span><span class="pill">Forecasting</span>
+            </div>
+          </div>
+          <div class="proj-card-cta">View case study <span class="arrow">→</span></div>
+        </a>
+
+        <a href="project-dupont-analysis.html" class="proj-card-link reveal">
+          <div class="proj-card-icon">👟</div>
+          <div class="proj-card-body">
+            <div class="proj-card-meta"><span>Sep 2023</span></div>
+            <div class="proj-card-title">Triple Leverage Analysis — DuPont's Stance</div>
+            <div class="proj-card-teaser">Decomposing a Shoe Venture's ROE through DuPont Analysis — breaking profitability, efficiency, and leverage into their parts.</div>
+            <div class="proj-card-tags">
+              <span class="pill">DuPont Analysis</span><span class="pill">ROE</span>
+            </div>
+          </div>
+          <div class="proj-card-cta">View case study <span class="arrow">→</span></div>
+        </a>
+
+      </div>
+      <div class="proj-placeholder reveal">
+        <div class="proj-placeholder-title">Got a project in mind?</div>
+        <div class="proj-placeholder-sub">I'm open to collaborative research and consulting work in finance and analytics.</div>
+        <a href="contact.html" class="btn btn-dark">Let's talk →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-l">© 2025 Saketh S Daroji</span>
+  <div class="footer-links">
+    <a href="mailto:darojisaketh@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank">LinkedIn</a>
+    <a href="tel:+917349656335">+91-7349656335</a>
+  </div>
+  <span class="footer-l">Bengaluru, India</span>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

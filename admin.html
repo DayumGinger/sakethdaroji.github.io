@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin — Saketh's Portfolio</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#FAF8F4; --cream:#F2EDE4; --rule:#E2DDD5; --ink:#1A1814; --ink2:#2D2924;
+  --muted:#8A847C; --faint:#B8B2A8; --blue:#3D5A80; --blue2:#5478A0; --green:#4a7c59; --red:#a03232;
+}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;min-height:100vh}
+
+/* LOGIN SCREEN */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.login-box{max-width:380px;width:100%;background:var(--cream);border:1px solid var(--rule);border-radius:4px;padding:3rem}
+.login-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;margin-bottom:0.5rem}
+.login-sub{font-size:13px;color:var(--muted);margin-bottom:2rem}
+.login-input{width:100%;background:var(--paper);border:1px solid var(--rule);border-radius:2px;padding:12px 16px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:1rem;transition:border-color 0.2s}
+.login-input:focus{border-color:var(--blue2)}
+.login-btn{width:100%;padding:13px;background:var(--ink);color:var(--paper);border:none;border-radius:2px;font-size:13px;letter-spacing:0.05em;cursor:pointer;transition:background 0.2s}
+.login-btn:hover{background:var(--blue)}
+.login-error{font-size:12.5px;color:var(--red);margin-top:0.75rem;display:none}
+
+/* ADMIN DASHBOARD */
+#adminScreen{display:none}
+.admin-nav{position:sticky;top:0;background:rgba(250,248,244,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:10}
+.admin-logo{font-family:'Cormorant Garamond',serif;font-size:20px}
+.admin-logo em{font-style:italic;color:var(--blue)}
+.save-all-btn{padding:10px 24px;background:var(--ink);color:var(--paper);border:none;border-radius:2px;font-size:12.5px;letter-spacing:0.05em;cursor:pointer;transition:background 0.2s}
+.save-all-btn:hover{background:var(--blue)}
+.save-all-btn:disabled{opacity:0.5;cursor:not-allowed}
+.logout-btn{font-size:12px;color:var(--muted);text-decoration:underline;cursor:pointer;background:none;border:none;margin-left:1rem}
+
+.admin-body{max-width:760px;margin:0 auto;padding:2.5rem 2rem 5rem}
+.save-toast{position:fixed;top:80px;right:2rem;background:var(--green);color:white;padding:12px 20px;border-radius:3px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:100;display:none;animation:slideIn 0.3s ease}
+.save-toast.err{background:var(--red)}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+.admin-section{margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--rule)}
+.admin-section-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;margin-bottom:0.4rem}
+.admin-section-sub{font-size:12.5px;color:var(--faint);margin-bottom:1.5rem}
+.field-group{margin-bottom:1.4rem}
+.field-label{display:block;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+.field-input,.field-textarea{width:100%;background:var(--cream);border:1px solid var(--rule);border-radius:2px;padding:11px 15px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color 0.2s}
+.field-input:focus,.field-textarea:focus{border-color:var(--blue2);background:var(--paper)}
+.field-textarea{resize:vertical;min-height:90px;line-height:1.6}
+.field-hint{font-size:11px;color:var(--faint);margin-top:0.4rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+.loading-state{text-align:center;padding:4rem;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-title">Admin <em style="font-style:italic;color:#3D5A80">Access</em></div>
+    <p class="login-sub">Enter your password to edit portfolio content.</p>
+    <input type="password" id="passwordInput" class="login-input" placeholder="Password" autocomplete="off"/>
+    <button class="login-btn" onclick="attemptLogin()">Unlock →</button>
+    <div class="login-error" id="loginError">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminScreen">
+  <div class="admin-nav">
+    <div class="admin-logo">Portfolio <em>Editor</em></div>
+    <div style="display:flex;align-items:center">
+      <button class="save-all-btn" id="saveAllBtn" onclick="saveAll()">Save All Changes</button>
+      <button class="logout-btn" onclick="logout()">Log out</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <div id="loadingState" class="loading-state">Loading your content…</div>
+    <div id="formContainer" style="display:none">
+
+      <!-- HOME / HERO -->
+      <div class="admin-section">
+        <div class="admin-section-title">Home Page</div>
+        <div class="admin-section-sub">The hero section at the top of your homepage</div>
+        <div class="field-group">
+          <label class="field-label">Eyebrow label</label>
+          <input class="field-input" data-field="hero_label" placeholder="Business Finance Partner · Bengaluru"/>
+        </div>
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">Headline — line 1</label>
+            <input class="field-input" data-field="hero_title_line1" placeholder="Data into"/>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Headline — line 2 (italic)</label>
+            <input class="field-input" data-field="hero_title_line2" placeholder="decisions."/>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Hero description</label>
+          <textarea class="field-textarea" data-field="hero_desc" placeholder="Short intro paragraph"></textarea>
+        </div>
+        <div class="two-col">
+          <div class="field-group"><label class="field-label">Stat 1 value</label><input class="field-input" data-field="stat1_val" placeholder="₹250Cr"/></div>
+          <div class="field-group"><label class="field-label">Stat 1 label</label><input class="field-input" data-field="stat1_label" placeholder="Portfolio managed"/></div>
+        </div>
+        <div class="two-col">
+          <div class="field-group"><label class="field-label">Stat 2 value</label><input class="field-input" data-field="stat2_val" placeholder="7"/></div>
+          <div class="field-group"><label class="field-label">Stat 2 label</label><input class="field-input" data-field="stat2_label" placeholder="Brands · 4 geographies"/></div>
+        </div>
+        <div class="two-col">
+          <div class="field-group"><label class="field-label">Stat 3 value</label><input class="field-input" data-field="stat3_val" placeholder="8.20"/></div>
+          <div class="field-group"><label class="field-label">Stat 3 label</label><input class="field-input" data-field="stat3_label" placeholder="CGPA · PES University"/></div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="admin-section">
+        <div class="admin-section-title">About Page</div>
+        <div class="admin-section-sub">Your bio, shown as 3 short paragraphs</div>
+        <div class="field-group"><label class="field-label">Bio — paragraph 1</label><textarea class="field-textarea" data-field="about_bio_p1"></textarea></div>
+        <div class="field-group"><label class="field-label">Bio — paragraph 2</label><textarea class="field-textarea" data-field="about_bio_p2"></textarea></div>
+        <div class="field-group"><label class="field-label">Bio — paragraph 3</label><textarea class="field-textarea" data-field="about_bio_p3"></textarea></div>
+
+        <div class="field-group">
+          <label class="field-label">Financial analysis skills</label>
+          <input class="field-input" data-field="skills_financial" placeholder="Skill one, Skill two, Skill three"/>
+          <div class="field-hint">Separate each skill with a comma</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Technical tools</label>
+          <input class="field-input" data-field="skills_technical" placeholder="Tool one, Tool two"/>
+          <div class="field-hint">Separate each tool with a comma</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Soft skills</label>
+          <input class="field-input" data-field="skills_soft" placeholder="Skill one, Skill two"/>
+          <div class="field-hint">Separate each skill with a comma</div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div class="admin-section">
+        <div class="admin-section-title">Experience — Current Role</div>
+        <div class="two-col">
+          <div class="field-group"><label class="field-label">Company</label><input class="field-input" data-field="exp1_company" placeholder="BRND.ME"/></div>
+          <div class="field-group"><label class="field-label">Role title</label><input class="field-input" data-field="exp1_role" placeholder="Business Finance Partner"/></div>
+        </div>
+        <div class="field-group"><label class="field-label">Dates</label><input class="field-input" data-field="exp1_dates" placeholder="Oct 2024 – Present"/></div>
+        <div class="field-group"><label class="field-label">Description</label><textarea class="field-textarea" data-field="exp1_desc"></textarea></div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">Experience — Previous Role</div>
+        <div class="two-col">
+          <div class="field-group"><label class="field-label">Company</label><input class="field-input" data-field="exp2_company" placeholder="Girish & Associates"/></div>
+          <div class="field-group"><label class="field-label">Role title</label><input class="field-input" data-field="exp2_role" placeholder="Finance Associate"/></div>
+        </div>
+        <div class="field-group"><label class="field-label">Dates</label><input class="field-input" data-field="exp2_dates" placeholder="Jan 2024 – Jun 2024"/></div>
+        <div class="field-group"><label class="field-label">Description</label><textarea class="field-textarea" data-field="exp2_desc"></textarea></div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="admin-section">
+        <div class="admin-section-title">Contact Info</div>
+        <div class="field-group"><label class="field-label">Email</label><input class="field-input" data-field="email" placeholder="you@email.com"/></div>
+        <div class="field-group"><label class="field-label">Phone</label><input class="field-input" data-field="phone" placeholder="+91-XXXXXXXXXX"/></div>
+        <div class="field-group"><label class="field-label">LinkedIn URL</label><input class="field-input" data-field="linkedin" placeholder="https://linkedin.com/in/..."/></div>
+        <div class="field-group"><label class="field-label">Location</label><input class="field-input" data-field="location" placeholder="City, Country"/></div>
+        <div class="field-group"><label class="field-label">Availability status text</label><textarea class="field-textarea" data-field="status_text" placeholder="Currently at... Open to..."></textarea></div>
+      </div>
+
+      <button class="save-all-btn" style="width:100%;padding:16px" onclick="saveAll()">Save All Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="save-toast" id="saveToast"></div>
+
+<script>
+const SUPABASE_URL = "https://euonswmeufydxurbjgiq.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1b25zd21ldWZ5ZHh1cmJqZ2lxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3MzgwNjgsImV4cCI6MjA5NzMxNDA2OH0.0xapkPjdjt8hWeJRWxns9Zrncb3ryVoRNtAUGhnT7po";
+
+let ADMIN_PASSWORD = null;
+let originalData = {};
+
+async function fetchAll() {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/portfolio_content?select=id,value`, {
+    headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }
+  });
+  const rows = await res.json();
+  const map = {};
+  rows.forEach(r => map[r.id] = r.value);
+  return map;
+}
+
+async function attemptLogin() {
+  const pass = document.getElementById('passwordInput').value;
+  const data = await fetchAll();
+  if (data.admin_password === pass) {
+    sessionStorage.setItem('portfolioAdminAuth', 'true');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    loadFormData(data);
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+document.getElementById('passwordInput').addEventListener('keypress', e => { if (e.key === 'Enter') attemptLogin(); });
+
+function logout() {
+  sessionStorage.removeItem('portfolioAdminAuth');
+  location.reload();
+}
+
+function loadFormData(data) {
+  originalData = data;
+  document.querySelectorAll('[data-field]').forEach(el => {
+    const key = el.getAttribute('data-field');
+    if (data[key] !== undefined) el.value = data[key];
+  });
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('formContainer').style.display = 'block';
+}
+
+async function saveAll() {
+  const btn = document.getElementById('saveAllBtn');
+  const fields = document.querySelectorAll('[data-field]');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  let allOk = true;
+  for (const el of fields) {
+    const key = el.getAttribute('data-field');
+    const value = el.value;
+    if (value === originalData[key]) continue; // skip unchanged
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/portfolio_content?id=eq.${key}`, {
+        method: 'PATCH',
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal'
+        },
+        body: JSON.stringify({ value })
+      });
+      if (!res.ok) allOk = false;
+      else originalData[key] = value;
+    } catch (e) {
+      allOk = false;
+    }
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Save All Changes';
+  showToast(allOk ? '✓ All changes saved successfully' : 'Some changes failed to save', allOk);
+}
+
+function showToast(msg, ok) {
+  const toast = document.getElementById('saveToast');
+  toast.textContent = msg;
+  toast.className = 'save-toast' + (ok ? '' : ' err');
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, 3500);
+}
+
+// Check existing session
+window.addEventListener('DOMContentLoaded', async () => {
+  if (sessionStorage.getItem('portfolioAdminAuth') === 'true') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    const data = await fetchAll();
+    loadFormData(data);
+  }
+});
+</script>
+</body>
+</html>
