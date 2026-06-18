@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — Saketh S Daroji</title>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+.page-header { padding: 5rem 0 4rem; border-bottom: 1px solid var(--rule); }
+.page-header-inner { max-width: 920px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+.ph-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); margin-bottom: 1.5rem; }
+.ph-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.025em; }
+.ph-title em { font-style: italic; color: var(--blue); }
+.ph-right { font-size: 15px; color: var(--muted); line-height: 1.85; padding-bottom: 4px; }
+
+.contact-body { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.contact-intro { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; line-height: 1.65; color: var(--ink2); margin-bottom: 3rem; }
+.contact-intro em { font-style: italic; color: var(--blue); }
+.contact-links { display: flex; flex-direction: column; }
+.contact-link { display: flex; align-items: center; justify-content: space-between; padding: 1.3rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink2); transition: color 0.2s, padding-left 0.25s; }
+.contact-link:first-child { border-top: 1px solid var(--rule); }
+.contact-link:hover { color: var(--blue); padding-left: 0.5rem; }
+.cl-label { font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); display: block; margin-bottom: 3px; }
+.cl-val { font-size: 14px; }
+.cl-arrow { color: var(--rule); transition: all 0.2s; }
+.contact-link:hover .cl-arrow { color: var(--blue); transform: translateX(4px); }
+
+.status-box { margin-top: 2.5rem; padding: 1.5rem; background: var(--cream); border: 1px solid var(--rule); border-radius: 3px; }
+.status-dot { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #4a7c59; margin-bottom: 0.6rem; }
+.status-dot::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #4a7c59; display: block; animation: blink 2.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+.status-text { font-size: 13px; color: var(--muted); line-height: 1.6; min-height: 2.5em; }
+
+.form { display: flex; flex-direction: column; gap: 1.3rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-field { display: flex; flex-direction: column; gap: 0.45rem; }
+.form-label { font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+.form-input, .form-textarea { background: var(--cream); border: 1px solid var(--rule); border-radius: 2px; padding: 11px 15px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.2s; width: 100%; }
+.form-input:focus, .form-textarea:focus { border-color: var(--blue2); background: var(--paper); }
+.form-textarea { resize: vertical; min-height: 120px; line-height: 1.65; }
+.form-submit { align-self: flex-start; padding: 13px 30px; background: var(--ink); color: var(--paper); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; border: none; border-radius: 2px; cursor: pointer; transition: background 0.2s; }
+.form-submit:hover { background: var(--blue); }
+.form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.form-feedback { font-size: 13px; padding: 11px 15px; border-radius: 2px; display: none; }
+.form-feedback.ok  { background: rgba(61,90,128,0.07); color: var(--blue); border: 1px solid rgba(61,90,128,0.18); display: block; }
+.form-feedback.err { background: rgba(160,50,50,0.06); color: #a03232; border: 1px solid rgba(160,50,50,0.18); display: block; }
+
+@media (max-width: 700px) {
+  .page-header-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .contact-body { grid-template-columns: 1fr; gap: 3.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Saketh <i>S.</i> Daroji</a>
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <p class="ph-eyebrow">Get in touch</p>
+        <h1 class="ph-title">Let's work<br><em>together.</em></h1>
+      </div>
+      <p class="ph-right">Open to new opportunities, strategic conversations, and collaborative work in finance. I typically respond within 24 hours.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="section">
+      <div class="contact-body">
+
+        <div class="reveal">
+          <div class="contact-intro">Whether it's a job opportunity, a <em>collaboration,</em> or just a conversation about finance — I'd love to hear from you.</div>
+          <div class="contact-links">
+            <a href="mailto:darojisaketh@gmail.com" class="contact-link" id="emailLink">
+              <div><span class="cl-label">Email</span><span class="cl-val skel" data-cms="email">darojisaketh@gmail.com</span></div>
+              <span class="cl-arrow">→</span>
+            </a>
+            <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank" class="contact-link">
+              <div><span class="cl-label">LinkedIn</span><span class="cl-val">saketh-s-daroji</span></div>
+              <span class="cl-arrow">↗</span>
+            </a>
+            <a href="tel:+917349656335" class="contact-link" id="phoneLink">
+              <div><span class="cl-label">Phone</span><span class="cl-val skel" data-cms="phone">+91-7349656335</span></div>
+              <span class="cl-arrow">→</span>
+            </a>
+            <div class="contact-link" style="cursor:default">
+              <div><span class="cl-label">Location</span><span class="cl-val skel" data-cms="location">Bengaluru, Karnataka</span></div>
+            </div>
+          </div>
+          <div class="status-box">
+            <div class="status-dot">Available for opportunities</div>
+            <div class="status-text skel" data-cms="status_text">Loading status...</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-d1">
+          <form class="form" id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label">Your name</label>
+                <input type="text" class="form-input" id="from_name" placeholder="Full name" required/>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Email address</label>
+                <input type="email" class="form-input" id="from_email" placeholder="your@email.com" required/>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Message</label>
+              <textarea class="form-textarea" id="message" placeholder="Tell me about the opportunity or what you'd like to discuss…" required></textarea>
+            </div>
+            <div id="formFeedback" class="form-feedback"></div>
+            <button type="submit" class="form-submit" id="submitBtn">Send message →</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-l">© 2025 Saketh S Daroji</span>
+  <div class="footer-links">
+    <a href="mailto:darojisaketh@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/saketh-s-daroji-389a59249" target="_blank">LinkedIn</a>
+    <a href="tel:+917349656335">+91-7349656335</a>
+  </div>
+  <span class="footer-l">Bengaluru, India</span>
+</footer>
+
+<script src="cms.js"></script>
+<script src="main.js"></script>
+<script>
+emailjs.init("4CJ9i2VpNdjfLl2u0");
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const fb  = document.getElementById('formFeedback');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  fb.className = 'form-feedback';
+
+  emailjs.send("service_786a4u4", "template_f7hbjoo", {
+    from_name:  document.getElementById('from_name').value,
+    from_email: document.getElementById('from_email').value,
+    message:    document.getElementById('message').value,
+  }).then(() => {
+    fb.className = 'form-feedback ok';
+    fb.textContent = '✓ Message sent — I\'ll get back to you soon.';
+    this.reset();
+    btn.textContent = 'Send message →';
+    btn.disabled = false;
+  }).catch(() => {
+    fb.className = 'form-feedback err';
+    fb.textContent = 'Something went wrong. Please email me directly.';
+    btn.textContent = 'Send message →';
+    btn.disabled = false;
+  });
+});
+</script>
+</body>
+</html>
